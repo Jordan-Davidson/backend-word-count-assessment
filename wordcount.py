@@ -42,24 +42,27 @@ print_words() and print_top().
 import sys
 import operator
 
-def print_words(filename):
-    with open(filename, 'r') as f:
-        contents = f.read()
-        contents = contents.lower()
-        f_list = contents.split()
-        words = {}
-        for word in f_list:
-            if not word in words:
-                words[word] = 1
-            else:
-                words[word] += 1
+def helper(filename):
+        with open(filename, 'r') as f:
+            contents = f.read()
+            contents = contents.lower()
+            f_list = contents.split()
+            words = {}
+            for word in f_list:
+                if not word in words:
+                    words[word] = 1
+                else:
+                    words[word] += 1
         return words
 
+def print_words(filename):
+    x = helper(filename)
+    print(x)
+
 def print_top(filename):
-    words = print_words(filename)
+    words = helper(filename)
     most_common_words = list(sorted(words.items(), key = operator.itemgetter(1), reverse = True))[:20]
     print(most_common_words)
-
 
 def main():
     if len(sys.argv) != 3:
